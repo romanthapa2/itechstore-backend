@@ -93,4 +93,23 @@ router.get("/laptop/:id", async (req, res) => {
   }
 })
 
+
+router.get("/filtered-brand", async (req, res) => {
+  try {
+    // Retrieve filtering criteria from query parameters
+
+
+    // Query the database with the filter object
+    const filteredData = await admin.find({ brand: req.query.brand });
+
+    // Return the filtered data as JSON response
+    res.json(filteredData);
+    console.log("finding brand")
+    console.log(filteredData);
+  } catch (error) {
+    // Handle errors
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 module.exports = router;
