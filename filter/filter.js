@@ -3,7 +3,7 @@ const router = express.Router();
 const admin = require("../modules/admin");
 
 // route: 1 filter data of type http://localhost:5000/api/admin/filtered-data?type=Laptop
-router.get("/filtered-data", async (req, res) => {
+router.get("/filter", async (req, res) => {
     try {
   
       // Query the database with the filter object
@@ -17,8 +17,12 @@ router.get("/filtered-data", async (req, res) => {
     }
   });
 
-  // route: 2
-router.get("/filtered-brand", async (req, res) => {
+
+
+
+
+  // route: 3
+router.get("/brand", async (req, res) => {
     try {
       // Retrieve filtering criteria from query parameters
   
@@ -37,7 +41,7 @@ router.get("/filtered-brand", async (req, res) => {
   });
 
 
-  // route 3. get data by id
+  // route 4. get data by id
 router.get("/laptop/:id", async (req, res) => {
     try {
       const id = req.params.id
