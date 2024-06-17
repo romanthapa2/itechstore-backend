@@ -32,8 +32,6 @@ router.get("/brand", async (req, res) => {
   
       // Return the filtered data as JSON response
       res.json(filteredData);
-      console.log("finding brand")
-      console.log(filteredData);
     } catch (error) {
       // Handle errors
       res.status(500).json({ error: "Internal server error" });
