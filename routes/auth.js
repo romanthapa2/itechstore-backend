@@ -7,8 +7,8 @@ const bcrypt = require("bcryptjs");
 // use validation
 const { body, validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
-const jwt_secret = "romanthapaand@";
-const fetchuser=require("../middleware/fetchuser")
+require("dotenv").config();
+const jwt_secret = process.env.SECRET_KEY;
 
 // route 1 create user endpoint
 router.post(

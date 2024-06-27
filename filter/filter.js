@@ -19,8 +19,6 @@ router.get("/filter", async (req, res) => {
 
 
 
-
-
   // route: 3
 router.get("/brand", async (req, res) => {
     try {

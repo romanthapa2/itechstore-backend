@@ -5,8 +5,9 @@ const cors = require('cors');
 // Connect to the MongoDB database
 connectToMongo();
 
+require('dotenv').config();
 const app = express();
-const port = 5000;
+const port = process.env.PORT;
 
 // Middleware setup
 app.use(cors());
@@ -21,6 +22,7 @@ const filterRoutes = require("./filter/filter");
 app.use('/filter', filterRoutes);
 
 const userRoutes = require("./routes/auth");
+const { configDotenv } = require('dotenv');
 app.use('/auth', userRoutes);
 
 // Static file serving
