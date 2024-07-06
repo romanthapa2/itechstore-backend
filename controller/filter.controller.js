@@ -10,7 +10,7 @@ const getDataByType = asyncHandler(async(req,res)=>{
     throw new apiError(400,"type parameter is missing")
   }
   const filteredDataByType = await Product.find({ type });
-  apiResponse(200, filteredDataByType, "types of products")
+  return res.json(new apiResponse(200, filteredDataByType, "types of products"))
 })
 
 
@@ -21,7 +21,7 @@ const getDataByBrand = asyncHandler(async(req,res)=>{
       throw new apiError(400,"brand parameter is missing")
     }
     const filteredDataByBrand = await Product.find({ brand });
-    apiResponse(200, filteredDataByBrand, " products by brand")
+    return res.json(new apiResponse(200, filteredDataByBrand, " products by brand"))
 })
 
 
@@ -32,7 +32,7 @@ const getDataById = asyncHandler(async(req,res)=>{
     throw new apiError(400,"id parameter is missing")
   }
   const findDataById = await Product.findById(id);
-  apiResponse(200, filteredDataById, " products by id ")
+  return res.json(new apiResponse(200, findDataById, " products by id "))
 })
 
 module.exports = {getDataByType , getDataById , getDataByBrand};

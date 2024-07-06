@@ -12,13 +12,11 @@ const addProduct = asyncHandler(async (req, res) => {
   // create a new admin in database
   // check for data creation
   // return a json
-  let errors = validationResult(req);
+  console.log(req.body)
 
-  if (!errors.isEmpty()) {
-    throw new apiError(400, "error accessing the product details");
-  }
   const { name, type, brand, desc, price } = req.body;
   const img = `${req?.file?.path}`;
+ 
 
   const product = await Product.create({
     name,

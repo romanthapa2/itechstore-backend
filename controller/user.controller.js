@@ -24,19 +24,21 @@ const registerUser = asyncHandler(async (req, res) => {
     email,
     password,
   });
-
-  const createdUser = await User.findById(User._id).select("-password -email");
+console.log(user)
+  const createdUser = await User.findById(user._id);
+  console.log(createdUser)
 
   if (!createdUser) {
     throw new apiError(500, "Something went wrong while registering the User");
   }
 
-  const accessToken = await generateAccessToken(User._id);
+  // const accessToken = await generateAccessToken(user._id);
 
   return res
     .status(201)
     .json(new apiResponse(200,
-         { User: createdUser, accessToken },
+      createdUser,
+        //  { User: createdUser,  },
           "User registered Successfully"));
 });
 
