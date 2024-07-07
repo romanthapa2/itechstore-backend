@@ -11,7 +11,9 @@ const registerUser = asyncHandler(async (req, res) => {
   // if not create a new User
   // check if the User is created or not
   // if created respond
-
+  console.log(req.body["name"])
+  console.log(req.body.name)
+  // {first name:"xyz"} 
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
