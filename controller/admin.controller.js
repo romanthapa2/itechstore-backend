@@ -12,8 +12,7 @@ const addProduct = asyncHandler(async (req, res) => {
   // create a new admin in database
   // check for data creation
   // return a json
-  console.log(req.body)
-
+  
   const { name, type, brand, desc, price } = req.body;
   const img = `${req?.file?.path}`;
  

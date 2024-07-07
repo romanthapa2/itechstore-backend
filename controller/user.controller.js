@@ -2,6 +2,7 @@ const apiError = require("../utils/apiError.utils.js");
 const apiResponse = require("../utils/apiResponse.utils.js");
 const asyncHandler = require("../utils/asyncHandler.utils");
 const User = require("../modules/user.module.js");
+const {validationResult} = require("express-validator")
 
 const registerUser = asyncHandler(async (req, res) => {
   // use middleware for validating if User has given all information for signup
@@ -11,6 +12,10 @@ const registerUser = asyncHandler(async (req, res) => {
   // check if the User is created or not
   // if created respond
 
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
   const { name, email, password } = req.body;
 
   const existedUser = await User.findOne({ email: email });
@@ -24,7 +29,7 @@ const registerUser = asyncHandler(async (req, res) => {
     email,
     password,
   });
-console.log(user)
+console.log(user._id)
   const createdUser = await User.findById(user._id);
   console.log(createdUser)
 
