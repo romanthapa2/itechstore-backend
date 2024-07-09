@@ -5,6 +5,6 @@ const router = express.Router();
 
 router.route("/dataByBrand").get(getDataByBrand)
 router.route("/dataByType").get(getDataByType)
-router.route("/dataById").get(getDataById)
+router.route("/dataById/:id").get(getDataById)
 
 module.exports = router;
