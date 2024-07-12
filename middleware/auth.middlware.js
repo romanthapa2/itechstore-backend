@@ -1,18 +1,45 @@
 const jwt_secret = process.env.ACCSS_TOKEN_SECRET_KEY;
-const { verify } = require("jsonwebtoken");
-const apiError = require("../utils/apiError.utils");
+const { jwt } = require("jsonwebtoken");
+const ApiError = require("../utils/apiError.utils.js");
+const User = require("../modules/user.module");
+const asyncHandler = require("../utils/asyncHandler.utils.js");
 
-const verifyJWT = (req, res, next) => {
-  const token = req.header("auth-token");
+const verifyUserByJWT = asyncHandler(async(req, _ , next) => {
+  try{
+  const token =  req.cookies?.accessToken ||req.header("auth-token")?.replace("Bearer","");
   if (!token) {
-    throw new apiError(401, "please authenticate using a valid user");
+    throw new ApiError(401, "please authenticate using a valid user");
   }
-  try {
-    const data = verify(token, jwt_secret);
-    req.user = data.user;
-    next();
-  } catch (error) {
-    throw new apiError(401, "Invalid token");
+    const decodedToken = jwt.verify(token, jwt_secret);
+    const user = await User.findById(decodedToken._id).select("-password");
+    if (!user) {
+      throw new ApiError(404, "Invalid Acess Token");
+    }
+    req.user = user;
+    next()
+  }catch (error) {
+    throw new ApiError(401, error?.message || "Invalid access token")
+}
+});
+
+
+const verifyAdminByJwt = asyncHandler(async(req, _ ,next)=>{
+  try{
+    const token = req.cookies?.accessToken || req.header("auth-token")?.replace("Bearer","");
+    if (!token) {
+      throw new ApiError(401, "Please authenticate using a valid user");
+    }
+    const decodedToken = jwt.verify(token, jwt_secret);
+    const user = await User.findById(decodedToken._id).select("-password");
+    if (!user || !user.isAdmin) {
+      throw new ApiError(403, "Unauthorized to access this route");
+    }
+    req.user = user;
+    next()
+  }catch (error) {
+    throw new ApiError(401, error?.message || "Invalid access token")
   }
-};
-module.exports = verifyJWT;
+});
+
+
+module.exports = {verifyUserByJWT , verifyAdminByJwt};

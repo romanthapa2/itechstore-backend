@@ -1,5 +1,4 @@
 const Product = require("../modules/product.module.js");
-const { validationResult } = require("express-validator");
 const asyncHandler = require("../utils/asyncHandler.utils.js");
 const apiError = require("../utils/apiError.utils.js");
 const apiResponse = require("../utils/apiResponse.utils.js");
