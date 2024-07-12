@@ -1,4 +1,4 @@
-const Product = require("../modules/product.module.js");
+const Product = require("../models/product.model.js");
 const asyncHandler = require("../utils/asyncHandler.utils.js")
 const apiResponse = require("../utils/apiResponse.utils.js")
 const apiError = require("../utils/apiError.utils.js")

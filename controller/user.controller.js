@@ -1,7 +1,7 @@
 const ApiError = require("../utils/apiError.utils.js");
 const ApiResponse = require("../utils/apiResponse.utils.js");
 const asyncHandler = require("../utils/asyncHandler.utils");
-const User = require("../modules/user.module.js");
+const User = require("../models/user.model.js");
 
 
 const registerUser = asyncHandler(async (req, res) => {

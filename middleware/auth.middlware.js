@@ -1,7 +1,7 @@
 const jwt_secret = process.env.ACCSS_TOKEN_SECRET_KEY;
 const  jwt  = require("jsonwebtoken");
 const ApiError = require("../utils/apiError.utils.js");
-const User = require("../modules/user.module");
+const User = require("../models/user.model.js");
 const asyncHandler = require("../utils/asyncHandler.utils.js");
 
 const verifyUserByJWT = asyncHandler(async(req, _ , next) => {
