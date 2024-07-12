@@ -5,12 +5,6 @@ const apiResponse = require("../utils/apiResponse.utils.js");
 
 
 const addProduct = asyncHandler(async (req, res) => {
-  // validate if the req data is according to the rules set up
-  // get the data from the fronted
-  // check for images
-  // create a new admin in database
-  // check for data creation
-  // return a json
   
   const { name, type, brand, desc, price } = req.body;
   const img = `${req?.file?.path}`;
