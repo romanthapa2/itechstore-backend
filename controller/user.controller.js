@@ -5,8 +5,8 @@ const User = require("../models/user.model.js");
 
 
 const registerUser = asyncHandler(async (req, res) => {
-  console.log(req.body["name"])
-  console.log(req.body.name)
+  // console.log(req.body["name"])
+  // console.log(req.body.name)
   // {first name:"xyz"} 
   const { name, email, password } = req.body;
 
@@ -21,9 +21,8 @@ const registerUser = asyncHandler(async (req, res) => {
     email,
     password,
   });
-console.log(user._id)
   const createdUser = await User.findById(user._id).select("-password -email");
-  console.log(createdUser)
+
 
   if (!createdUser) {
     throw new ApiError(500, "Something went wrong while registering the User");

@@ -6,11 +6,11 @@ const ApiError = require("../utils/apiError.utils.js")
 const router = express.Router();
 
 const validateRegister = [
-  body('name')
+  body('name').trim()
     .isLength({ min: 5 }).withMessage('Username must be at least 5 characters long'),
   body('email')
-    .isEmail().withMessage('Email is not valid'),
-  body('password')
+    .isEmail().normalizeEmail().withMessage('Email is not valid'),
+  body('password').trim()
     .isLength({ min: 6 }).withMessage('Password must be at least 6 characters long')
 ];
 

@@ -8,14 +8,14 @@ const router = express.Router();
 
 const validateLengthOfProductData =
   [
-    body("name")
-    .isLength({ min: 5 }).withMessage('Username must be at least 5 characters long'),
-  body("type")
-  .isLength({ min: 5 }).withMessage('type must be at least 5 characters long'),
-  body("desc")
-  .isLength({ min: 10 }).withMessage('Description must be at least 10 characters long'),
-  body("price")
-  .isLength({min:3}).withMessage("Price must be at least 3 characters long")
+    body("name").trim()
+    .isLength({ min: 5 }).withMessage('Username must be at least 5 characters long').escape(),
+  body("type").trim()
+  .isLength({ min: 5 }).withMessage('type must be at least 5 characters long').escape(),
+  body("desc").trim()
+  .isLength({ min: 10 }).withMessage('Description must be at least 10 characters long').escape(),
+  body("price").trim()
+  .isNumeric().withMessage("Price must be a numeric value").escape()
   ]
 
 router.route('/add-product').post(
