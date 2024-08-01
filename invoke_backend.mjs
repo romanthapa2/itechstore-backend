@@ -1,12 +1,10 @@
 import 'dotenv/config';
 import fetch from 'node-fetch';
 
-// URL of your backend service
-const BACKEND_URL = process.env.BACKEND_URL;
 
 async function invokeBackend() {
   try {
-    const response = await fetch(BACKEND_URL);
+    const response = await fetch("https://shoponline-backend.onrender.com");
     if (!response.ok) {
       throw new Error(`Network response was not ok: ${response.statusText}`);
     }
