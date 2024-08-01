@@ -4,7 +4,7 @@ import fetch from 'node-fetch';
 
 async function invokeBackend() {
   try {
-    const response = await fetch("https://shoponline-backend.onrender.com");
+    const response = await fetch("https://shoponline-backend.onrender.com/api/filter/dataByType?type=Monitors");
     if (!response.ok) {
       throw new Error(`Network response was not ok: ${response.statusText}`);
     }
