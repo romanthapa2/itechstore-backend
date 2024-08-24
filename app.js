@@ -7,7 +7,17 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use("/uploads", express.static("uploads"));
+
+function cacheImages(req, res, next) {
+    if (req.url.endsWith(".jpg") || req.url.endsWith(".jpeg") || req.url.endsWith(".png") || req.url.endsWith(".webp")) {
+        res.setHeader("Cache-Control", "public, max-age=31536000");
+    }else {
+        res.setHeader("Cache-Control", "public, max-age=0");  
+    }
+    next();
+}
+
+app.use("/uploads", cacheImages, express.static("uploads"));
 
 
 const adminRoutes = require("./routes/admin.routes.js");

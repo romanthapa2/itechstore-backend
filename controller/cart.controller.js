@@ -9,5 +9,4 @@ const addToCart= asyncHandler(async(req,res)=>{
     if(existingUser){
         Cart.products.push(product)
     }
-
 })
