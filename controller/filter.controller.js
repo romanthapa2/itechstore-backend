@@ -9,7 +9,7 @@ const getDataByType = asyncHandler(async(req,res)=>{
   if (!type) {
     throw new apiError(400,"type parameter is missing")
   }
-  const filteredDataByType = await Product.find({ type });
+  const filteredDataByType = await Product.find({ type }).select("-desc");
   return res.json(new apiResponse(200, filteredDataByType, "types of products"))
 })
 
@@ -20,7 +20,8 @@ const getDataByBrand = asyncHandler(async(req,res)=>{
     if (!brand) {
       throw new apiError(400,"brand parameter is missing")
     }
-    const filteredDataByBrand = await Product.find({ brand });
+    const filteredDataByBrand = await Product.find({ brand }).select("-desc");
+
     return res.json(new apiResponse(200, filteredDataByBrand, " products by brand"))
 })
 

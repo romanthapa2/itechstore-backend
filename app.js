@@ -24,7 +24,7 @@ const adminRoutes = require("./routes/admin.routes.js");
 const filterRoutes = require("./routes/filter.routes.js");
 const userRoutes = require("./routes/user.routes.js");
 
-app.use("/api/admin",verifyAdminByJwt, adminRoutes);
+// app.use("/api/admin",verifyAdminByJwt, adminRoutes);
 app.use("/api/filter", filterRoutes);
 app.use("/api/user", userRoutes);
 
