@@ -14,5 +14,5 @@ async function invokeBackend() {
   }
 }
 
-// Invoke the backend
+
 invokeBackend();
