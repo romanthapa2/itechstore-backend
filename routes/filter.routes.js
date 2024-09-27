@@ -1,14 +1,14 @@
 const express = require("express");
 const {
-  getDataByBrand,
-  getDataByType,
+  getDataByFilters,
   getDataById,
+  getDataBySearch,
 } = require("../controller/filter.controller.js");
 
 const router = express.Router();
 
-router.route("/dataByBrand").get(getDataByBrand);
-router.route("/dataByType").get(getDataByType);
+router.route("/dataByFilter").get(getDataByFilters);
 router.route("/dataById/:id").get(getDataById);
+router.route("/dataBySearch").get(getDataBySearch);
 
 module.exports = router;
