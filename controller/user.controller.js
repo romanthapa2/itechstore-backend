@@ -8,7 +8,7 @@ const registerUser = asyncHandler(async (req, res) => {
   // console.log(req.body["name"])
   // console.log(req.body.name)
   // {first name:"xyz"} 
-  const { name, email, password } = req.body;
+  const { email, password } = req.body;
 
   const existedUser = await User.findOne({ email: email });
 
@@ -17,7 +17,6 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 
   const user = await User.create({
-    name,
     email,
     password,
   });
