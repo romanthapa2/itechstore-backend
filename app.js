@@ -24,7 +24,6 @@ function cacheImages(req, res, next) {
 
 app.use("/uploads", cacheImages, express.static("uploads"));
 
-
 const adminRoutes = require("./routes/admin.routes.js");
 const filterRoutes = require("./routes/filter.routes.js");
 const userRoutes = require("./routes/user.routes.js");
@@ -34,7 +33,6 @@ app.use("/api/filter", filterRoutes);
 app.use("/api/user", userRoutes);
 
 app.use((err, req, res, next) => {
-
   const statusCode = err.statusCode || 500;
   const success = err.success || false;
   const message = err.message || "Internal Server Error";
