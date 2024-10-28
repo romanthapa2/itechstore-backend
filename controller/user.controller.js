@@ -42,6 +42,7 @@ const registerUser = asyncHandler(async (req, res) => {
           "User registered Successfully"));
 });
 
+
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
@@ -78,4 +79,19 @@ const loginUser = asyncHandler(async (req, res) => {
 
 });
 
-module.exports = { registerUser, loginUser };
+
+
+const logout = asyncHandler(async (req, res, next) => {
+  res.status(200).cookie("accessToken",null,
+    {
+      expires: new Date(Date.now()),
+      httpOnly: true,
+  }
+   ).json(new ApiResponse(200, "Logged Out"))
+});
+
+
+
+
+
+module.exports = { registerUser, loginUser, logout };
