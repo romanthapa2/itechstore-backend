@@ -2,6 +2,7 @@ const ApiError = require("../utils/apiError.utils.js");
 const ApiResponse = require("../utils/apiResponse.utils.js");
 const asyncHandler = require("../utils/asyncHandler.utils");
 const User = require("../models/user.model.js");
+const apiError = require("../utils/apiError.utils.js");
 
 
 const registerUser = asyncHandler(async (req, res) => {
@@ -92,6 +93,98 @@ const logout = asyncHandler(async (req, res, next) => {
 
 
 
+const forgotPassword = asyncHandler(async (req, res, next) => {
+    
+  const user = await User.findOne({ email: req.body.email });
+  if (!user) {
+      return next(new ApiError(404,"User not found"));
+  }
 
 
-module.exports = { registerUser, loginUser, logout };
+  const resetToken = user.getResetPasswordToken();
+  await user.save({ validateBeforeSave: false });
+  
+
+  const resetPasswordUrl = `${req.protocol}://${req.get(
+      "host"
+  )}/api/password/reset/${resetToken}`;
+
+  const message = `Your password reset token is :- \n\n ${resetPasswordUrl} \n\n 
+  If you have not requested this email then please ignore it`;
+    
+  try {
+
+      await sendEmail({
+          email: user.email,
+          subject: `Ecommerce Password Recovery`,
+          message,
+      });
+
+      res.status(200).json({
+          success: true,
+          message:`Email sent to ${user.email} successfully`,
+      })
+      
+  } catch (error) {
+      user.resetPasswordToken = undefined;
+      user.resetPasswordExpire = undefined;
+
+      await user.save({ validateBeforeSave: false });
+
+      return next(new ApiError(500,error.message));
+  }
+
+});
+
+
+const resetPassword = asyncHandler(async (req, res, next) => {
+  
+  const resetPasswordToken = crypto
+      .createHash("sha256")
+      .update(req.params.token)
+      .digest("hex");
+
+  const user = await User.findOne({
+      resetPasswordToken,
+      resetPasswordExpire:{$gt: Date.now()},
+  })
+
+  if (!user) {
+      return next(new ApiError(400,"Reset Password Token is invalid or has been expired"));
+  }
+
+  if (req.body.password != req.body.confirmPassword) {
+      return next(new ApiError(400,"Password does not match"));
+  }
+
+  user.password = req.body.password;
+
+  user.resetPasswordToken = undefined;
+  user.resetPasswordExpire = undefined;
+                            
+  await user.save({ validateBeforeSave: false });
+
+
+  const accessToken = await user.generateAccessToken(user._id);
+
+  const options = {
+    httpOnly: true,
+    secure: true
+  }
+
+  return res.status(200)
+    .cookie("accessToken", accessToken , options)
+    .json(
+      new ApiResponse(
+        200,
+        { user, accessToken },
+        "User logged in Successfully after resetting password"
+      )
+    )
+
+});
+
+
+
+
+module.exports = { registerUser, loginUser, logout, resetPassword, forgotPassword };
