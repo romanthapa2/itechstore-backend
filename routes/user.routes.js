@@ -1,5 +1,11 @@
 const express = require("express");
-const { registerUser, loginUser } = require("../controller/user.controller.js");
+const {
+  registerUser,
+  loginUser,
+  logout,
+  resetPassword,
+  forgotPassword,
+} = require("../controller/user.controller.js");
 const { body, validationResult } = require("express-validator");
 const ApiError = require("../utils/apiError.utils.js");
 
@@ -30,5 +36,8 @@ router.post(
 );
 
 router.route("/login").post(loginUser);
+router.route("/password/forgot").post(forgotPassword);
+router.route("/password/reset/:token").put(resetPassword);
+router.route("/logout").post(logout);
 
 module.exports = router;
