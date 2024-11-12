@@ -1,5 +1,5 @@
 const Product = require("../models/product.model");
-const ApiError = require("../utils/apiError.utils.js");
+const apiError = require("../utils/apiError.utils.js");
 const asyncHandler = require("../utils/asyncHandler.utils.js");
 
 //Get all Products
@@ -15,7 +15,7 @@ const getAllProducts = asyncHandler(async (req, res) => {
   });
 });
 
-//Details of Product
+
 const createProductReviews = asyncHandler(async (req, res, next) => {
   const { rating, comment, productId } = req.body;
   const userId = req.user._id.toString();
@@ -48,7 +48,7 @@ const getProductReviews = asyncHandler(async (req, res, next) => {
   const product = await Product.findById(req.query.id);
 
   if (!product) {
-    return next(new ApiError("Product not found", 404));
+    return next(new apiError("Product not found", 404));
   }
 
   res.status(200).json({
@@ -62,7 +62,7 @@ const deleteReview = asyncHandler(async (req, res, next) => {
   const product = await Product.findById(req.query.productId);
 
   if (!product) {
-    return next(new ApiError("Product not found", 404));
+    return next(new apiError("Product not found", 404));
   }
 
   product.reviews = product.reviews.filter(
@@ -81,4 +81,4 @@ const deleteReview = asyncHandler(async (req, res, next) => {
 
 
 
-module.exports= {deleteReview,getAllProducts,getProductDetails,createProductReviews,getProductReviews};
+module.exports= {deleteReview,getAllProducts,createProductReviews,getProductReviews};
