@@ -5,7 +5,7 @@ const asyncHandler = require("../utils/asyncHandler.utils")
 const apiError = require("../utils/apiError.utils")
 
 
-exports.newOrder = asyncHandler(async(req,res,next)=>{
+const newOrder = asyncHandler(async(req,res,next)=>{
     const {shippingInfo,orderItems,paymentInfo,itemsPrice,taxPrice,shippingPrice,totalPrice,}=req.body;
 
     const orders = await Order.create({shippingInfo,orderItems,paymentInfo,itemsPrice,taxPrice,shippingPrice,totalPrice,paidAt: Date.now(),user: req.user._id,});
@@ -17,7 +17,7 @@ exports.newOrder = asyncHandler(async(req,res,next)=>{
 });
   
 
-exports.myorder=asyncHandler(async(req,res,next)=>{
+const myorder=asyncHandler(async(req,res,next)=>{
   const orders=await Order.find({user:req.params.id});
 
   res.status(200).json({
@@ -27,7 +27,7 @@ exports.myorder=asyncHandler(async(req,res,next)=>{
 });
 
 
-exports.getAllOrders = asyncHandler(async (req, res, next) => {
+const getAllOrders = asyncHandler(async (req, res, next) => {
   const orders = await Order.find();
 
   let totalAmount = 0;
@@ -44,7 +44,7 @@ exports.getAllOrders = asyncHandler(async (req, res, next) => {
 });
 
 
-exports.updateOrder = asyncHandler(async (req, res, next) => {
+const updateOrder = asyncHandler(async (req, res, next) => {
   const order = await Order.findById(req.params.id);
 
   if (!order) {
@@ -81,7 +81,7 @@ async function updateStock(id, quantity) {
 }
 
 
-exports.deleteOrder = asyncHandler(async (req, res, next) => {
+const deleteOrder = asyncHandler(async (req, res, next) => {
   const order = await Order.findById(req.params.id);
 
   if (!order) {
@@ -98,3 +98,5 @@ exports.deleteOrder = asyncHandler(async (req, res, next) => {
     success: true,
   });
 });
+
+module.exports = {newOrder,myorder,getAllOrders,updateOrder,deleteOrder}
