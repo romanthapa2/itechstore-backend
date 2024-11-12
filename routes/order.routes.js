@@ -4,9 +4,9 @@ const { newOrder, myorder, getAllOrders, updateOrder, deleteOrder } = require(".
 
 const router=express.Router();
 
-router.route("/order/new").post(verifyUserByJWT,newOrder);
-router.route("/order/me/:id").get(verifyUserByJWT,myorder);
-router.route("/admin/order").get(verifyAdminByJwt,getAllOrders);
-router.route("/admin/order/:id").put(verifyAdminByJwt,updateOrder).delete(verifyAdminByJwt,deleteOrder);
+router.route("/new").post(verifyUserByJWT,newOrder);
+router.route("/me/:id").get(verifyUserByJWT,myorder);
+router.route("/admin/orders").get(verifyAdminByJwt,getAllOrders);
+router.route("/admin/:id").put(verifyAdminByJwt,updateOrder).delete(verifyAdminByJwt,deleteOrder);
 
 module.exports=router;

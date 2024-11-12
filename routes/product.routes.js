@@ -39,7 +39,7 @@ const validateLengthOfProductData = [
 ];
 
 router.route("/products").get(getAllProducts);
-router.route("/product/new").post(
+router.route("/new").post(
   verifyAdminByJwt,
   validateLengthOfProductData,
   (req, res, next) => {
@@ -56,7 +56,7 @@ router.route("/product/new").post(
   createProduct
 );
 router
-  .route("/product/:id")
+  .route("/:id")
   .put(verifyAdminByJwt, updateProduct)
   .delete(verifyAdminByJwt, deleteProduct)
   .get(getProductDetails);
