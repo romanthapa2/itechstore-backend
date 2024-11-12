@@ -35,13 +35,6 @@ const getDataBySearch = asyncHandler(async (req, res) => {
   return res.json(new apiResponse(200, searchData, "Products by search"));
 });
 
-const getDataById = asyncHandler(async (req, res) => {
-  const id = req.params.id;
-  if (!id) {
-    throw new apiError(400, "id parameter is missing");
-  }
-  const findDataById = await Product.findById(id);
-  return res.json(new apiResponse(200, findDataById, " products by id "));
-});
 
-module.exports = { getDataById, getDataByFilters, getDataBySearch };
+
+module.exports = { getDataByFilters, getDataBySearch };
