@@ -4,10 +4,15 @@ const {
   loginUser,
   logout,
   resetPassword,
+  updatePassword,
   forgotPassword,
 } = require("../controller/user.controller.js");
 const { body, validationResult } = require("express-validator");
 const ApiError = require("../utils/apiError.utils.js");
+const {
+  verifyUserByJWT,
+  verifyAdminByJwt,
+} = require("../middleware/auth.middlware");
 
 const router = express.Router();
 
@@ -38,6 +43,7 @@ router.post(
 router.route("/login").post(loginUser);
 router.route("/password/forgot").post(forgotPassword);
 router.route("/password/reset/:token").put(resetPassword);
+router.route("/password/update").put( updatePassword);
 router.route("/logout").post(logout);
 
 module.exports = router;

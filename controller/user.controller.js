@@ -3,6 +3,7 @@ const ApiResponse = require("../utils/apiResponse.utils.js");
 const asyncHandler = require("../utils/asyncHandler.utils");
 const User = require("../models/user.model.js");
 const sendEmail = require("../utils/sendEmail.utils.js")
+const crypto = require('crypto');
 
 const registerUser = asyncHandler(async (req, res) => {
   // console.log(req.body["name"])
@@ -102,7 +103,7 @@ const forgotPassword = asyncHandler(async (req, res, next) => {
 
   const resetPasswordUrl = `${req.protocol}://${req.get(
     "host"
-  )}/api/password/reset/${resetToken}`;
+  )}/api/user/password/reset/${resetToken}`;
 
   const message = `Your password reset token is :- \n\n ${resetPasswordUrl} \n\n 
   If you have not requested this email then please ignore it`;
