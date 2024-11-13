@@ -2,7 +2,7 @@ const ApiError = require("../utils/apiError.utils.js");
 const ApiResponse = require("../utils/apiResponse.utils.js");
 const asyncHandler = require("../utils/asyncHandler.utils");
 const User = require("../models/user.model.js");
-const apiError = require("../utils/apiError.utils.js");
+const sendEmail = require("../utils/sendEmail.utils.js")
 
 const registerUser = asyncHandler(async (req, res) => {
   // console.log(req.body["name"])
@@ -97,7 +97,7 @@ const forgotPassword = asyncHandler(async (req, res, next) => {
     return next(new ApiError(404, "User not found"));
   }
 
-  const resetToken = user.getResetPasswordToken();
+  const resetToken = await user.getResetPasswordToken();
   await user.save({ validateBeforeSave: false });
 
   const resetPasswordUrl = `${req.protocol}://${req.get(

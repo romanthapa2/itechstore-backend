@@ -42,5 +42,4 @@ const verifyAdminByJwt = asyncHandler(async(req, _ ,next)=>{
 });
 
 
-module.exports = verifyUserByJWT;
-module.exports = verifyAdminByJwt;
+module.exports = {verifyUserByJWT,verifyAdminByJwt};

@@ -1,8 +1,10 @@
-const mongooes = require("mongoose");
+const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const validator = require("validator");
-const { Schema } = mongooes;
+const { Schema } = mongoose;
+const crypto = require("crypto");
+
 
 const userSchema = new Schema({
   email: {
@@ -41,9 +43,8 @@ userSchema.methods.generateAccessToken = async function () {
   );
 };
 
-userSchema.methods.getResetPasswordToken = function () {
+userSchema.methods.getResetPasswordToken =  function () {
   const resetToken = crypto.randomBytes(20).toString("hex");
-
 
   this.resetPasswordToken = crypto
     .createHash("sha256")
@@ -55,4 +56,4 @@ userSchema.methods.getResetPasswordToken = function () {
   return resetToken;
 };
 
-module.exports = mongooes.model("User", userSchema);
+module.exports = mongoose.model("User", userSchema);

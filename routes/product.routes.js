@@ -14,6 +14,9 @@ const {
   verifyAdminByJwt,
 } = require("../middleware/auth.middlware");
 const router = express.Router();
+const { body, validationResult } = require("express-validator");
+const upload = require("../middleware/multer.middleware.js")
+
 
 const validateLengthOfProductData = [
   body("name")
