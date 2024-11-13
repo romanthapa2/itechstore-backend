@@ -1,19 +1,8 @@
 const Product = require("../models/product.model");
 const apiError = require("../utils/apiError.utils.js");
 const asyncHandler = require("../utils/asyncHandler.utils.js");
+const apiResponse = require("../utils/apiResponse.utils.js")
 
-//Get all Products
-const getAllProducts = asyncHandler(async (req, res) => {
-  const productCount = await Product.countDocuments({ user: req.user._id });
-
-  const products = await Product.find({ user: req.user._id });
-
-  res.status(200).json({
-    success: true,
-    products,
-    productCount,
-  });
-});
 
 const createProductReviews = asyncHandler(async (req, res, next) => {
   const { rating, comment, productId } = req.body;
@@ -163,7 +152,6 @@ const getProductDetails = asyncHandler(async (req, res) => {
 module.exports = {
   deleteReview,
   getProductDetails,
-  getAllProducts,
   createProductReviews,
   getProductReviews,
   createProduct,

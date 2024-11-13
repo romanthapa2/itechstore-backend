@@ -43,7 +43,7 @@ router.post(
 router.route("/login").post(loginUser);
 router.route("/password/forgot").post(forgotPassword);
 router.route("/password/reset/:token").put(resetPassword);
-router.route("/password/update").put( updatePassword);
+router.route("/password/update").put(verifyUserByJWT, updatePassword);
 router.route("/logout").post(logout);
 
 module.exports = router;

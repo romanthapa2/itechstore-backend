@@ -6,7 +6,7 @@ const asyncHandler = require("../utils/asyncHandler.utils.js");
 
 const verifyUserByJWT = asyncHandler(async(req, _ , next) => {
   try{
-  const token =  req.cookies?.accessToken || req.header("auth-token")?.replace("Bearer ","");
+  const token =  req.cookies?.accessToken || req.header("accessToken")?.replace("Bearer ","");
   if (!token) {
     throw new ApiError(401, "please authenticate using a valid user");
   }

@@ -15,8 +15,7 @@ const {
 } = require("../middleware/auth.middlware");
 const router = express.Router();
 const { body, validationResult } = require("express-validator");
-const upload = require("../middleware/multer.middleware.js")
-
+const upload = require("../middleware/multer.middleware.js");
 
 const validateLengthOfProductData = [
   body("name")
@@ -41,7 +40,7 @@ const validateLengthOfProductData = [
     .escape(),
 ];
 
-router.route("/products").get(getAllProducts);
+
 router.route("/new").post(
   verifyAdminByJwt,
   validateLengthOfProductData,
